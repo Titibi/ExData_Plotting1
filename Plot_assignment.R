@@ -9,11 +9,7 @@ if(!file.exists("exdata-data-household_power_consumption.zip")) {
 hpc <- read.table("household_power_consumption.txt", header = TRUE, sep = ";" , col.names = c("Date","Time","Global_active_power","Global_reactive_power","Voltage","Global_intensity","Sub_metering_1","Sub_metering_2","Sub_metering_3"),na.strings = "?")
 useful_dates<-grep("^1{1}/2/2007|^2{1}/2/2007",hpc$Date)
 hpc <- hpc[useful_dates,]
-library(dplyr)
-library(chron)
-hpc <- tbl_df(hpc)
 hpc$Date <- as.Date(hpc$Date, format = "%d/%m/%Y")
-hpc$Time <- chron(times=hpc$Time)
 
 #Plot 1
 hist(hpc$Global_active_power,xlab = "Global Active Power (kilowatts)",col = "RED")
